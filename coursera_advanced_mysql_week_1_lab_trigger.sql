@@ -4,7 +4,7 @@ DROP TRIGGER if exists ProductSellPriceInsertCheck//
 
 
 CREATE TRIGGER ProductSellPriceInsertCheck
-BEFORE INSERT on Products FOR EACH ROW
+AFTER INSERT on Products FOR EACH ROW
 BEGIN
  if NEW.SellPrice <= NEW.BuyPrice THEN
   INSERT into Notifications VALUES(NULL,concat("ProductID",NEW.ProductID, "was updated with a SellPrice of",
@@ -19,7 +19,7 @@ DROP TRIGGER if exists ProductSellPriceUpdateCheck//
 
 
 CREATE TRIGGER ProductSellPriceUpdateCheck
-BEFORE UPDATE on Products FOR EACH ROW
+AFTER UPDATE on Products FOR EACH ROW
 BEGIN
  if NEW.SellPrice <= NEW.BuyPrice THEN
   INSERT into Notifications VALUES(NULL,concat("ProductID",NEW.ProductID, "was updated with a SellPrice of",
